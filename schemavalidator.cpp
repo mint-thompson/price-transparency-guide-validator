@@ -4,13 +4,13 @@
 
 #define RAPIDJSON_HAS_STDSTRING 1
 
-#include "rapidjson/include/rapidjson/error/en.h"
-#include "rapidjson/include/rapidjson/filereadstream.h"
-#include "rapidjson/include/rapidjson/filewritestream.h"
-#include "rapidjson/include/rapidjson/schema.h"
-#include "rapidjson/include/rapidjson/reader.h"
-#include "rapidjson/include/rapidjson/stringbuffer.h"
-#include "rapidjson/include/rapidjson/prettywriter.h"
+#include <rapidjson/error/en.h>
+#include <rapidjson/filereadstream.h>
+#include <rapidjson/filewritestream.h>
+#include <rapidjson/schema.h>
+#include <rapidjson/reader.h>
+#include <rapidjson/stringbuffer.h>
+#include <rapidjson/prettywriter.h>
 #include <tclap/CmdLine.h>
 #include <string>
 #include <iostream>
