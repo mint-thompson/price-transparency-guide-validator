@@ -1,0 +1,88 @@
+name: Create and upload release assets
+on:
+  release:
+    types: [published] # github.event.release.upload_url
+jobs:
+  release_ubuntu:
+    name: Compile validator binary for ubuntu and upload to release
+    runs-on: ubuntu-latest
+    # strategy:
+    #   matrix:
+    #     os: [ubuntu-latest, windows-latest, macos-latest]
+    steps:
+      - uses: actions/checkout@v4
+      - name: update submodules
+        run: git submodule init
+      - name: setup cpp
+        uses: aminya/setup-cpp@v1
+        with:
+          cmake: true
+      # - name: install compiler and dependencies
+      #   run: sudo apt update
+      # - run: sudo apt install -y g++ cmake doxygen valgrind wget
+      # - name: compile executable
+      #   run: g++ -O3 --std=c++17 -I /rapidjson/include -I /tclap/include/ schemavalidator.cpp -o validator_ubuntu -lstdc++fs
+      - name: create buildfile
+        run: cmake .
+      - name: build executable
+        run: cmake --build .
+      - name: upload executable
+        # uses: softprops/action-gh-release@v2
+        # with:
+        #   files: validator_ubuntu
+        uses: actions/upload-release-asset@v1.0.2
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./SchemaValidator
+          asset_name: validator-ubuntu
+          asset_content_type: application/octet-stream
+  release_windows:
+    name: Compile validator binary for windows and upload to release
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: update submodules
+        run: git submodule init
+      - name: setup cpp
+        uses: aminya/setup-cpp@v1
+        with:
+          cmake: true
+      - name: create buildfile
+        run: cmake .
+      - name: build executable
+        run: cmake --build .
+      - name: upload executable
+        uses: actions/upload-release-asset@v1.0.2
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./SchemaValidator
+          asset_name: validator-windows.exe
+          asset_content_type: application/octet-stream
+  release_macos:
+    name: Compile validator binary for macos and upload to release
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: update submodules
+        run: git submodule init
+      - name: setup cpp
+        uses: aminya/setup-cpp@v1
+        with:
+          cmake: true
+      - name: create buildfile
+        run: cmake .
+      - name: build executable
+        run: cmake --build .
+      - name: upload executable
+        uses: actions/upload-release-asset@v1.0.2
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./SchemaValidator
+          asset_name: validator-macos
+          asset_content_type: application/octet-stream
