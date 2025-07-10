@@ -17,6 +17,9 @@ jobs:
         uses: aminya/setup-cpp@v1
         with:
           cmake: true
+          compiler: gcc
+      - name: activate cpp environment vars
+        run: source ~/.cpprc
       # - name: install compiler and dependencies
       #   run: sudo apt update
       # - run: sudo apt install -y g++ cmake doxygen valgrind wget
@@ -49,6 +52,7 @@ jobs:
         uses: aminya/setup-cpp@v1
         with:
           cmake: true
+          compiler: msvc
       - name: create buildfile
         run: cmake .
       - name: build executable
@@ -73,6 +77,9 @@ jobs:
         uses: aminya/setup-cpp@v1
         with:
           cmake: true
+          compiler: gcc
+      - name: activate cpp environment vars
+        run: source ~/.cpprc
       - name: create buildfile
         run: cmake .
       - name: build executable
