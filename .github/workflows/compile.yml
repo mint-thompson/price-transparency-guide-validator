@@ -11,6 +11,8 @@ jobs:
     #     os: [ubuntu-latest, windows-latest, macos-latest]
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: true
       - name: update submodules
         run: git submodule init
       - name: setup cpp
@@ -44,6 +46,8 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: true
       - name: update submodules
         run: git submodule init
       - name: setup cpp
@@ -69,6 +73,8 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: true
       - name: update submodules
         run: git submodule init
       - name: setup cpp
